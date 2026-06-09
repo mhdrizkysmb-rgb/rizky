@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOKO ANI TERI MEDAN - Kualitas Premium</title>
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #f8fafc;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .tagline {
+            font-size: 11px;
+            color: #38bdf8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: -2px;
+        }
+
+        .cart-box {
+            position: relative;
+            cursor: pointer;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-box:hover {
+            background: #0ea5e9;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(14, 165, 233, 0.4);
+        }
+
+        /* --- MAIN LAYOUT --- */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 6px;
+            height: 75%;
+            background: #1e3a8a;
+            border-radius: 4px;
+        }
+
+        /* --- PRODUCT GRID & CARDS --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid #e2e8f0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #cbd5e1;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 240px;
+            position: relative;
+            background-color: #f1f5f9;
+            overflow: hidden;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.06);
+        }
+
+        /* Tombol Hapus Modern */
+        .btn-delete {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #ef4444;
+            border: 1px solid #fecaca;
+            padding: 6px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .btn-delete:hover {
+            background-color: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: #0f172a;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: transform;
+        }
+
+        .btn-add {
+            background-color: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2);
+        }
+
+        .btn-add:hover {
+            background-color: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+        }
+
+        /* --- ADMIN PANEL --- */
+        .admin-panel {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            margin: 60px auto 20px auto;
+            max-width: 550px;
+            width: 100%;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.2s;
+            background-color: #f8fafc;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #1e3a8a;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+        }
+
+        .btn-submit {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+            width: 100%;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-submit:hover {
+            background-color: #059669;
+            box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3);
+        }
+
+        /* --- MODAL KERANJANG --- */
+        .modal-cart {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover { color: #1e293b; }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .cart-item strong {
+            font-size: 15px;
+            color: #0f172a;
+        }
+
+        .cart-total {
+            margin-top: 25px;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: right;
+            color: #0f172a;
+        }
+
+        .btn-checkout {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: all 0.2s;
+        }
+
+        .btn-checkout:hover {
+            background-color: #22c55e;
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 35px 20px;
+            margin-top: 80px;
+            border-top: 1px solid #1e293b;
+            font-size: 14px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        .footer-address {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 8px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e2e8f0;
+            margin: 60px 0;
+        }
+    </style>
+</head>
+<body>
+
+   <header>
+        <div class="nav-container">
+            <div class="logo-block">
+                <div class="logo">🐟 TOKO ANI TERI MEDAN</div>
+                <div class="tagline">Kualitas Premium & Terpercaya</div>
+            </div>
+            <div class="cart-box" onclick="bukaKeranjang()">
+                <span>🛒</span> Keranjang (<span id="cart-count">0</span>)
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="section-title">Produk Pilihan Terbaik</h2>
+        
+        <div class="product-grid" id="product-container">
+            
+            <div class="product-card" id="prod-1">
+                <button class="btn-delete" onclick="hapusProduk('prod-1')">🗑️ Hapus</button>
+                <div class="img-container">
+                    <img src="https://raw.githubusercontent.com/mhdrizkysmb-rgb/rizky/refs/heads/main/38519.jpg" alt="Teri Medan Premium" class="product-img">
+                </div>
+                <div class="product-info">
+                    <div class="product-name">BABY CUMI Premium Super</div>
+                    <div class="product-desc">Teri medan putih bersih, kualitas super, asin pas, dan tanpa bahan pengawet kimia.</div>
+                    <div class="product-price">Rp 150.000</div>
+                    <button class="btn-add" onclick="tambahKeKeranjang('Teri Medan Asli Premium Super', 450000)">Beli Sekarang</button>
+                </div>
+            </div>
+
+            <div class="product-card" id="prod-2">
+                <button class="btn-delete" onclick="hapusProduk('prod-2')">🗑️ Hapus</button>
+                <div class="img-container">
+                    <img src="https://raw.githubusercontent.com/mhdrizkysmb-rgb/rizky/refs/heads/main/38520.jpg" alt="Teri Medan Kristal" class="product-img">
+                </div>
+                <div class="product-info">
+                    <div class="product-name">teri nasi Premium Super </div>
+                    <div class="product-desc">Tekstur garing dan renyah setelah digoreng. Sangat cocok untuk olahan sambal teri khas Medan.</div>
+                    <div class="product-price">Rp 120.000</div>
+                    <button class="btn-add" onclick="tambahKeKeranjang('Teri Nasi / Kristal Pilihan', 450000)">Beli Sekarang</button>
+                </div>
+            </div>
+
+            <div class="product-card" id="prod-3">
+                <button class="btn-delete" onclick="hapusProduk('prod-3')">🗑️ Hapus</button>
+                <div class="img-container">
+                    <img src="https://raw.githubusercontent.com/mhdrizkysmb-rgb/rizky/refs/heads/main/38521.jpg" alt="Teri Kacang" class="product-img">
+                </div>
+                <div class="product-info">
+                    <div class="product-name">teri nasi Premium Super </div>
+                    <div class="product-desc">Kombinasi pas teri pilihan berkualitas tinggi dengan kacang tanah garing siap olah.</div>
+                    <div class="product-price">Rp 165.000</div>
+                    <button class="btn-add" onclick="tambahKeKeranjang('Paket Sambal Teri Kacang', 450000)">Beli Sekarang</button>
+                </div>
+            </div>
+
+        </div> 
+
+        <hr>
+
+        <div class="admin-panel">
+            <h2 class="section-title" style="border-left-color: #10b981;">Panel Admin - Tambah Produk</h2>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="prod-name">Nama Produk:</label>
+                    <input type="text" id="prod-name" placeholder="Contoh: Teri Belah Spesial Kering" required>
+                </div>
+                <div class="form-group">
+                    <label for="prod-price">Harga Toko (Rp):</label>
+                    <input type="number" id="prod-price" placeholder="Contoh: 120000" required>
+                </div>
+                <div class="form-group">
+                    <label for="prod-desc">Deskripsi Lengkap:</label>
+                    <textarea id="prod-desc" rows="3" placeholder="Jelaskan kualitas dan keunggulan produk teri Anda..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="prod-img">Foto Gambar Produk:</label>
+                    <input type="file" id="prod-img" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn-submit">➕ Tambahkan Produk Baru</button>
+            </form>
+        </div> 
+    </main>
+
+    <div class="modal-cart" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="tutupKeranjang()">&times;</span>
+            <h2 style="margin-bottom: 15px; color: #0f172a; font-size: 20px;">🛒 Detail Keranjang Belanja</h2>
+            
+            <div id="cart-items-list">
+                <p style="color: #94a3b8; text-align: center; padding: 20px 0;">Keranjang masih kosong.</p>
+            </div>
+
+            <div class="cart-total">Total Bayar: <span id="cart-total-price" style="color: #1e3a8a;">Rp 0</span></div>
+            <button class="btn-checkout" onclick="checkoutWhatsApp()">💬 Pesan Sekarang via WhatsApp</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 <strong>TOKO ANI TERI MEDAN</strong>. Terpercaya, Aman, & Kualitas Bagus.</p> 
+        <p class="footer-address">📍 Alamat: Jalan Pusat Pasar Medan Mall, Lantai 1, Kota Medan.</p>
+    </footer>
+
+    <script>
+        let keranjang = [];
+        let productIdCounter = 4; // ID lanjutan untuk produk admin baru
+
+        // 1. FITUR KERANJANG
+        function tambahKeKeranjang(nama, harga) {
+            const itemAda = keranjang.find(item => item.nama === nama);
+            if (itemAda) {
+                itemAda.jumlah += 1;
+            } else {
+                keranjang.push({ nama: nama, harga: harga, jumlah: 1 });
+            }
+            perbaruiTampilanKeranjang();
+            alert(`🛒 ${nama} berhasil ditambahkan!`);
+        }
+
+        function perbaruiTampilanKeranjang() {
+            let totalBarang = 0;
+            let totalHarga = 0;
+            const listContainer = document.getElementById('cart-items-list');
+            
+            if (keranjang.length === 0) {
+                listContainer.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 20px 0;">Keranjang masih kosong.</p>';
+            } else {
+                listContainer.innerHTML = '';
+                keranjang.forEach((item, index) => {
+                    totalBarang += item.jumlah;
+                    totalHarga += (item.harga * item.jumlah);
+
+                    const itemRow = document.createElement('div');
+                    itemRow.classList.add('cart-item');
+                    itemRow.innerHTML = `
+                        <div>
+                            <strong>${item.nama}</strong><br>
+                            <small style="color: #64748b;">${item.jumlah} x Rp ${item.harga.toLocaleString('id-ID')}</small>
+                        </div>
+                        <button style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:600; font-size:13px;" onclick="hapusDariKeranjang(${index})">Hapus</button>
+                    `;
+                    listContainer.appendChild(itemRow);
+                });
+            }
+
+            document.getElementById('cart-count').innerText = totalBarang;
+            document.getElementById('cart-total-price').innerText = "Rp " + totalHarga.toLocaleString('id-ID');
+        }
+
+        function hapusDariKeranjang(index) {
+            keranjang.splice(index, 1);
+            perbaruiTampilanKeranjang();
+        }
+
+        function bukaKeranjang() {
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+        function tutupKeranjang() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function checkoutWhatsApp() {
+            if (keranjang.length === 0) {
+                alert('Keranjang Anda kosong!');
+                return;
+            }
+            let pesan = "Halo Toko Ani Teri Medan, saya mau order:\n\n";
+            keranjang.forEach(item => {
+                pesan += `▪️ ${item.nama} (${item.jumlah}x)\n`;
+            });
+            pesan += `\n*Total Bayar:* ${document.getElementById('cart-total-price').innerText}\n\nMohon info detail pengiriman ya, terima kasih.`;
+            
+            const urlWa = "https://wa.me/6282250932235?text=" + encodeURIComponent(pesan);
+            window.open(urlWa, '_blank');
+        }
+
+        // 2. FITUR HAPUS PRODUK
+        function hapusProduk(idElemen) {
+            const konfirmasi = confirm("Hapus produk ini dari etalase toko?");
+            if (konfirmasi) {
+                document.getElementById(idElemen).remove();
+            }
+        }
+
+        // 3. FITUR TAMBAH PRODUK ADMIN (REAL-TIME)
+        document.getElementById('product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('prod-name').value;
+            const price = parseInt(document.getElementById('prod-price').value);
+            const desc = document.getElementById('prod-desc').value;
+            const imgInput = document.getElementById('prod-img');
+
+            const formattedPrice = "Rp " + price.toLocaleString('id-ID');
+            const currentId = "prod-" + productIdCounter;
+            productIdCounter++;
+
+            const file = imgInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const imgUrl = event.target.result;
+                    const productGrid = document.getElementById('product-container');
+                    const newProduct = document.createElement('div');
+                    newProduct.classList.add('product-card');
+                    newProduct.id = currentId;
+
+                    newProduct.innerHTML = `
+                        <button class="btn-delete" onclick="hapusProduk('${currentId}')">🗑️ Hapus</button>
+                        <div class="img-container">
+                            <img src="${imgUrl}" alt="${name}" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">${name}</div>
+                            <div class="product-desc">${desc}</div>
+                            <div class="product-price">${formattedPrice}</div>
+                            <button class="btn-add" onclick="tambahKeKeranjang('${name}', ${price})">Beli Sekarang</button>
+                        </div>
+                    `;
+
+                    productGrid.appendChild(newProduct);
+                    document.getElementById('product-form').reset();
+                    alert('🎉 Produk Teri Baru Berhasil Ditambahkan!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
